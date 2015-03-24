@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Grade Project</title>
+    </head>
+
+
+    <body>
+        <div id="video" style="color:#0000FF; float:left; width:50%;">
+        <video  controls>
+            <source src={{ video_link }} type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        </div>
+
+        <div id="grade_form" style="float:right; width:50%">
+            <form action="" method="POST">
+                <table>
+                    <tr> <td>Please enter your VT PID (without the @vt.edu):</td> <td> {{ form.graderPID }} </td></tr>
+                </table>
+                <br>
+                <table>
+                    <tr bgcolor=#DADADA> <td> 1. Please rate the PRODUCTION QUALITY of the video. </td>
+                        {% for subfield in form.videoquaility %}
+                        <td> {{subfield}} {{subfield.label}}</td>
+                        {% endfor %} </tr>
+                    <tr> <td> 2. To what extent does the CONTENT of this video sell you on this campaign? </td>
+                        {% for subfield in form.soldlevel %}
+                        <td> {{subfield}} {{subfield.label}}</td>
+                    {% endfor %} </tr>
+                </table>
+                <table>
+                    <tr> <td> <i>For questions 3 - 12, if the answer is yes, check the coresponding box. </i></td></tr>
+                    <tr bgcolor=#D7D7D7> <td> 3. Is music present in the video? </td>  <td>{{form.music}} </td></tr>
+                    <tr > <td> 4. Are there animations in this video? </td> <td>{{form.animations}}</td></tr>
+                    <tr bgcolor=#D7D7D7> <td> 5. Is a working prototype is shown? </td> <td>{{ form.prototype }}</td></tr>
+                    <tr> <td> 6. Is a patent mentioned in the video? </td> <td>{{form.patent}} </td></tr>
+                    <tr bgcolor=#D7D7D7> <td> 7. Is a logo present? </td>  <td>{{form.logo}}</td></tr>
+                    <tr> <td> 8. Were the campaign rewards listed or described in the video? </td> <td> {{form.rewardsmentioned}}</td></tr>
+                    <tr bgcolor=#D7D7D7> <td> 9. Is another company referenced in the video?  </td>                             <td>{{ form.othcompreference }} </td>
+                                                                                    <td> If yes give company name:</td> <td> {{form.othcompname }}</td></tr>
+                    <tr> <td> 10. Is the founder's school or university mentioned? </td> <td>{{ form.founderschool }}</td> <td> If yes give school name:</td> <td>{{form.founderschoolname}}</td></tr>
+                    <tr bgcolor=#D7D7D7> <td> 11. Does the founder mention previous startup experience? </td> <td>{{ form.founderstartup }}</td> <td>If yes give startup name:</td> <td> {{form.founderstartupname }}</td></tr>
+                    <tr> <td> 12. Is the product endorsed by any celebrity or expert?</td> <td>{{ form.endorsement }}</td> <td>If yes give endorsers name:</td> <td>{{form.endorsementname}}</td></tr>
+                </table>
+                <table>
+                    <tr> 13. Select all that Apply</tr>
+                    <tr bgcolor=#D7D7D7><td> The presenter focuses on the founders characteristics. </td> <td> {{form.pitchfocusfounder}}</td></tr>
+                    <tr><td> The presenter focuses on the technology. </td> <td>{{form.pitchfocustechnology}}</td></tr>
+                    <tr bgcolor=#D7D7D7><td> The presenter focuses on the customer's needs. </td> <td>{{form.pitchfocuscustomer}}</td></tr>
+                </table>
+                <table>
+                    <tr> <td>14. Enter the length of the video (min:sec ie. 0:08)</td> <td> {{ form.videolength }}</td></tr>
+                </table>
+                <br>
+                <table>
+                    <tr><td> Click when finished: </td> <td>{{ form.submitButton }}</td></tr>
+                </table>
+            </form>
+        </div>
+
+    </body>
+
+</html>
