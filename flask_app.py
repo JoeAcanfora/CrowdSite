@@ -512,7 +512,7 @@ def project_grade_page(grade_num, series_num):
     try:
         if request.method == 'POST':
 
-            # return form_saved(form, grade_num, series_num)
+            #return form_saved(form, grade_num, series_num, '')
             form_saved(form, grade_num, series_num, '')
             return redirect('http://joeacanfora.pythonanywhere.com/')
         else:
@@ -537,7 +537,7 @@ def project_regrade_page(grade_num, series_num):
     try:
         if request.method == 'POST':
 
-            # return form_saved(form, grade_num, series_num)
+            #return form_saved(form, grade_num, series_num)
             form_saved(form, grade_num, series_num, '_regrade')
             return redirect('http://joeacanfora.pythonanywhere.com/')
         else:
@@ -562,7 +562,7 @@ def project_reconcile_page(grade_num, series_num):
     try:
         if request.method == 'POST':
 
-            # return form_saved(form, grade_num, series_num)
+            return form_saved(form, grade_num, series_num, '_reconcile')
             form_saved(form, grade_num, series_num, '_reconcile')
             return redirect('http://joeacanfora.pythonanywhere.com/')
         else:
@@ -797,13 +797,139 @@ def save_form_to_db(form, grade_num, series_num, regrade):
         graded = True
         videoLength = None
         colon = (int(str(form.videolength.data).find(":")))
+
+        c.execute("""SELECT project_id FROM project_table WHERE series_number = %s""", (series_num,))
+        project_id = c.fetchall()[0][0]
+
         if  colon != -1:
             videoLength = int(str(form.videolength.data).split(":")[0]) * 60 + (int(str(form.videolength.data).split(":")[1]))
-        args = (series_num, project_id, graded, str(form.graderPID.data) + regrade, form.videoquality.data, form.soldlevel.data, form.othcompreference.data,
-                form.othcompname.data, form.founderschool.data, form.founderschoolname.data, form.founderstartup.data,
-                form.founderstartupname.data, form.prototype.data, form.endorsement.data, form.endorsementname.data,
-                form.music.data, form.animations.data, form.patent.data, form.rewardsmentioned.data,
-                form.pitchfocusfounder.data, form.pitchfocustechnology.data, form.pitchfocuscustomer.data, videoLength, series_num)
+        videoquality = soldlevel = othcompreference = othcompname = founderschoolname = founderschool = founderstartup = None
+        if (form.videoquality == ''):
+            c.execute("""SELECT videoquality FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            videoquality = c.fetchall()[0][0]
+        else:
+            videoquality = form.videoquality.data
+        if (form.soldlevel == ''):
+            c.execute("""SELECT soldlevel FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            soldlevel = c.fetchall()[0][0]
+        else:
+            soldlevel = form.videoquality.data
+        if (form.othcompreference == ''):
+            c.execute("""SELECT othcompreference FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            othcompreference = c.fetchall()[0][0]
+        else:
+            othcompreference = form.othcompreference.data
+        if (form.othcompname == ''):
+            c.execute("""SELECT othcompname FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            othcompname = c.fetchall()[0][0]
+        else:
+            othcompname = form.othcompname.data
+        if (form.founderschool == ''):
+            c.execute("""SELECT founderschool FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            founderschool = c.fetchall()[0][0]
+        else:
+            founderschool = form.founderschool.data
+        if (form.founderschoolname == ''):
+            c.execute("""SELECT founderschoolname FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            founderschoolname = c.fetchall()[0][0]
+        else:
+            founderschoolname = form.founderschoolname.data
+        if (form.founderstartup == ''):
+            c.execute("""SELECT founderstartup FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            founderstartup = c.fetchall()[0][0]
+        else:
+            founderstartup = form.founderstartup.data
+        if (form.founderstartupname == ''):
+            c.execute("""SELECT founderstartupname FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            founderstartupname = c.fetchall()[0][0]
+        else:
+            founderstartupname = form.founderstartupname.data
+        if (form.prototype == ''):
+            c.execute("""SELECT prototype FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            prototype = c.fetchall()[0][0]
+        else:
+            prototype = form.prototype.data
+        if (form.endorsement == ''):
+            c.execute("""SELECT endorsement FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            endorsement = c.fetchall()[0][0]
+        else:
+            endorsement = form.endorsement.data
+        if (form.endorsementname == ''):
+            c.execute("""SELECT endorsementname FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            endorsementname = c.fetchall()[0][0]
+        else:
+            endorsementname = form.endorsementname.data
+        if (form.music == ''):
+            c.execute("""SELECT music FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            music = c.fetchall()[0][0]
+        else:
+            music = form.music.data
+        if (form.animations == ''):
+            c.execute("""SELECT animations FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            animations = c.fetchall()[0][0]
+        else:
+            animations = form.animations.data
+        if (form.animations == ''):
+            c.execute("""SELECT animations FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            animations = c.fetchall()[0][0]
+        else:
+            animations = form.animations.data
+        if (form.patent == ''):
+            c.execute("""SELECT patent FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            patent = c.fetchall()[0][0]
+        else:
+            patent = form.patent.data
+        if (form.patent == ''):
+            c.execute("""SELECT patent FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            patent = c.fetchall()[0][0]
+        else:
+            patent = form.patent.data
+        if (form.rewardsmentioned == ''):
+            c.execute("""SELECT rewardsmentioned FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            rewardsmentioned = c.fetchall()[0][0]
+        else:
+            rewardsmentioned = form.rewardsmentioned.data
+        if (form.pitchfocusfounder == ''):
+            c.execute("""SELECT pitchfocusfounder FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            pitchfocusfounder = c.fetchall()[0][0]
+        else:
+            pitchfocusfounder = form.pitchfocusfounder.data
+        if (form.pitchfocustechnology == ''):
+            c.execute("""SELECT pitchfocustechnology FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            pitchfocustechnology = c.fetchall()[0][0]
+        else:
+            pitchfocustechnology = form.pitchfocustechnology.data
+        if (form.pitchfocuscustomer == ''):
+            c.execute("""SELECT pitchfocuscustomer FROM video_grades_table WHERE series_number = %s
+                            and graderPID = %s""", (series_num, form.graderPID.data))
+            pitchfocuscustomer = c.fetchall()[0][0]
+        else:
+            pitchfocuscustomer = form.pitchfocuscustomer.data
+        args = (project_id, series_num,  graded, str(form.graderPID.data) + regrade, videoquality,
+                soldlevel, othcompreference,
+                othcompname, founderschool, founderschoolname,
+                founderstartup, founderstartupname, prototype,
+                endorsement, endorsementname, music, animations, patent, rewardsmentioned,
+                pitchfocusfounder, pitchfocustechnology, pitchfocuscustomer, videoLength)
         if grade_num == 1 and regrade == '':
             c.execute('''UPDATE project_table SET graded1=TRUE
                 WHERE series_number=%s''', (series_num,))
@@ -824,7 +950,7 @@ def save_form_to_db(form, grade_num, series_num, regrade):
             return 'Fail ' + str(grade_num)
         c.connection.commit()
         c.execute('''INSERT INTO video_grades_table (project_id, series_number, graded, graderPID,
-                    videopresent, videoquality, soldlevel,
+                    videoquality, soldlevel,
                     othcompreference, othcompname, founderschool, founderschoolname,
                     founderstartup, founderstartupname, prototypes, endorsements,
                     endorsementname, music, animations, patent,
@@ -832,7 +958,7 @@ def save_form_to_db(form, grade_num, series_num, regrade):
                     videoLength)
                     VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
                     %s, %s,%s,%s,%s,%s,%s,%s,%s,%s,
-                    %s,%s,%s,%s)''', args)
+                    %s,%s,%s)''', args)
         c.connection.commit()
         return str(c.fetchall())
     except Exception as inst:
