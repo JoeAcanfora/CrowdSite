@@ -24,7 +24,7 @@ class GradeCol(Col):
         c.execute("""SELECT main_video_link from project_table WHERE series_number = %s""", (series, ))
         vidlink = c.fetchall()[0][0]
 
-        # if videopressent is '0':
+        # if videopresent is '0':
         series = series.replace("'", '')
         if vidlink is None:
             return 'N/A'
@@ -46,7 +46,7 @@ class ReGradeCol(Col):
         c.execute("""SELECT main_video_link from project_table WHERE series_number = %s""", (series, ))
         vidlink = c.fetchall()[0][0]
 
-        # if videopressent is '0':
+        # if videopresent is '0':
         series = series.replace("'", '')
         if int(series) < 53:
             if vidlink is None:
@@ -69,7 +69,7 @@ class ReconcileCol(Col):
         c.execute("""SELECT main_video_link from project_table WHERE series_number = %s""", (series, ))
         vidlink = c.fetchall()[0][0]
 
-        # if videopressent is '0':
+        # if videopresent is '0':
         series = series.replace("'", '')
         series_num = series
 
@@ -79,7 +79,7 @@ class ReconcileCol(Col):
         if (str(temp) != '()'): #<-if not empty
 
             g1ID = tuple(temp)[0][0]
-            c.execute("""SELECT videoquaility FROM video_grades_table WHERE series_number = %s and
+            c.execute("""SELECT videoquality FROM video_grades_table WHERE series_number = %s and
             graderPID = %s""", (series_num, g1ID))
             vidqual1 = c.fetchall()[0][0]
             c.execute("""SELECT soldlevel FROM video_grades_table WHERE series_number = %s and
@@ -127,7 +127,7 @@ class ReconcileCol(Col):
             c.execute("""SELECT animations FROM video_grades_table WHERE series_number = %s and
             graderPID = %s""", (series_num, g1ID))
             a1 = c.fetchall()[0][0]
-            c.execute("""SELECT paten1 FROM video_grades_table WHERE series_number = %s and
+            c.execute("""SELECT patent FROM video_grades_table WHERE series_number = %s and
             graderPID = %s""", (series_num, g1ID))
             pat1 = c.fetchall()[0][0]
             # c.execute("""SELECT logo1 FROM project_table WHERE series_number = %s""", (series_num, ))
@@ -140,7 +140,7 @@ class ReconcileCol(Col):
             temp = c.fetchall()
             if (len(tuple(temp)) > 1):
                 g2PID = tuple(temp)[1][0]
-                c.execute("""SELECT videoquaility FROM video_grades_table WHERE series_number = %s
+                c.execute("""SELECT videoquality FROM video_grades_table WHERE series_number = %s
                 and graderPID = %s""", (series_num, g2PID))
                 vidqual2 = c.fetchall()[0][0]
                 c.execute("""SELECT soldlevel FROM video_grades_table WHERE series_number = %s
@@ -188,7 +188,7 @@ class ReconcileCol(Col):
                 c.execute("""SELECT animations FROM video_grades_table WHERE series_number = %s
                 and graderPID = %s""", (series_num, g2PID))
                 a2 = c.fetchall()[0][0]
-                c.execute("""SELECT paten1 FROM video_grades_table WHERE series_number = %s
+                c.execute("""SELECT patent FROM video_grades_table WHERE series_number = %s
                 and graderPID = %s""", (series_num, g2PID))
                 pat2 = c.fetchall()[0][0]
                 # c.execute("""SELECT logo FROM video_grades_table WHERE series_number = %s
@@ -255,20 +255,20 @@ def homepage():
         db = connect_db()
         c = db.cursor(pymysql.cursors.DictCursor)
         c.execute("""SELECT series_number, project_id, project_name,
-        CONCAT(videopressent, ':', graded1, ':1:', series_number),
-        CONCAT(videopressent, ':', graded2, ':2:', series_number),
-        CONCAT(videopressent, ':', regraded1, ':1:', series_number),
-        CONCAT(videopressent, ':', regraded2, ':2:', series_number),
-        CONCAT(videopressent, ':', reconciled, ':1:', series_number) FROM project_table
+        CONCAT(videopresent, ':', graded1, ':1:', series_number),
+        CONCAT(videopresent, ':', graded2, ':2:', series_number),
+        CONCAT(videopresent, ':', regraded1, ':1:', series_number),
+        CONCAT(videopresent, ':', regraded2, ':2:', series_number),
+        CONCAT(videopresent, ':', reconciled, ':1:', series_number) FROM project_table
         WHERE series_number < 54 OR series_number > 1086""")
 
         query = c.fetchall()
         for q in query:
-            rename(q, str("CONCAT(videopressent, ':', graded1, ':1:', series_number)"), str('graded1'))
-            rename(q, str("CONCAT(videopressent, ':', graded2, ':2:', series_number)"), str('graded2'))
-            rename(q, str("CONCAT(videopressent, ':', regraded1, ':1:', series_number)"), str('regraded1'))
-            rename(q, str("CONCAT(videopressent, ':', regraded2, ':2:', series_number)"), str('regraded2'))
-            rename(q, str("CONCAT(videopressent, ':', reconciled, ':1:', series_number)"), str('reconciled'))
+            rename(q, str("CONCAT(videopresent, ':', graded1, ':1:', series_number)"), str('graded1'))
+            rename(q, str("CONCAT(videopresent, ':', graded2, ':2:', series_number)"), str('graded2'))
+            rename(q, str("CONCAT(videopresent, ':', regraded1, ':1:', series_number)"), str('regraded1'))
+            rename(q, str("CONCAT(videopresent, ':', regraded2, ':2:', series_number)"), str('regraded2'))
+            rename(q, str("CONCAT(videopresent, ':', reconciled, ':1:', series_number)"), str('reconciled'))
         table = TopTable(query)
 
         return render_template('list.html', table = str(table.__html__()))
@@ -345,7 +345,7 @@ def project_info_page(proj_id):
         if (str(temp) != '()'): #<-if not empty
 
             g1ID = tuple(temp)[0][0]
-            c.execute("""SELECT videoquaility FROM video_grades_table WHERE project_id = %s and
+            c.execute("""SELECT videoquality FROM video_grades_table WHERE project_id = %s and
             graderPID = %s""", (proj_id, g1ID))
             vidqual1 = c.fetchall()[0][0]
             c.execute("""SELECT soldlevel FROM video_grades_table WHERE project_id = %s and
@@ -393,7 +393,7 @@ def project_info_page(proj_id):
             c.execute("""SELECT animations FROM video_grades_table WHERE project_id = %s and
             graderPID = %s""", (proj_id, g1ID))
             a1 = c.fetchall()[0][0]
-            c.execute("""SELECT paten1 FROM video_grades_table WHERE project_id = %s and
+            c.execute("""SELECT patent FROM video_grades_table WHERE project_id = %s and
             graderPID = %s""", (proj_id, g1ID))
             pat1 = c.fetchall()[0][0]
             # c.execute("""SELECT logo1 FROM project_table WHERE project_id = %s""", (proj_id, ))
@@ -406,7 +406,7 @@ def project_info_page(proj_id):
             temp = c.fetchall()
             if (len(tuple(temp)) > 1):
                 g2PID = tuple(temp)[1][0]
-                c.execute("""SELECT videoquaility FROM video_grades_table WHERE project_id = %s
+                c.execute("""SELECT videoquality FROM video_grades_table WHERE project_id = %s
                 and graderPID = %s""", (proj_id, g2PID))
                 vidqual2 = c.fetchall()[0][0]
                 c.execute("""SELECT soldlevel FROM video_grades_table WHERE project_id = %s
@@ -454,7 +454,7 @@ def project_info_page(proj_id):
                 c.execute("""SELECT animations FROM video_grades_table WHERE project_id = %s
                 and graderPID = %s""", (proj_id, g2PID))
                 a2 = c.fetchall()[0][0]
-                c.execute("""SELECT paten1 FROM video_grades_table WHERE project_id = %s
+                c.execute("""SELECT patent FROM video_grades_table WHERE project_id = %s
                 and graderPID = %s""", (proj_id, g2PID))
                 pat2 = c.fetchall()[0][0]
                 # c.execute("""SELECT logo FROM video_grades_table WHERE project_id = %s
@@ -468,10 +468,10 @@ def project_info_page(proj_id):
         return render_template("project.html", project_id = proj_id, project_name = name, series_number = series_number, project_url = project_url,
         status = status, currency = currency, goal = goal, end_date = end_date, author_name = author,
         location = location, category = category, main_video_link = video,
-        grader1PID = g1ID, videoquaility1 = vidqual1, othcompreference1 = ocr1, othcompname1 = ocn1,
+        grader1PID = g1ID, videoquality1 = vidqual1, othcompreference1 = ocr1, othcompname1 = ocn1,
         pitchFounder1 = pf1, pitchTechnology1 = pt1, pitchCustomer1 = pc1, founderschool1 = fsr1, founderschoolname1 = fsn1, founderstartup1 = fsur1,
         founderstartupname1 = fsun1, prototypes1 = p1, endorsementname1 = en1, endorsements1 = e1,
-        grader2PID = g2PID, videoquaility2 = vidqual2, othcompreference2 = ocr2, othcompname2 = ocn2,
+        grader2PID = g2PID, videoquality2 = vidqual2, othcompreference2 = ocr2, othcompname2 = ocn2,
         pitchFounder2 = pf2, pitchTechnology2 = pt2, pitchCustomer2 = pc2, founderschool2 = fsr2, founderschoolname2 = fsn2, founderstartup2 = fsur2,
         founderstartupname2 = fsun2, prototypes2 = p2, endorsementname2 = en2, endorsements2 = e2, videocontent2 = sl2, videocontent1 = sl1,
         music1 = m1, music2 = m2, patent1 = pat1, patent2 = pat2, animations1 = a1, animations2 = a2,
@@ -482,9 +482,9 @@ def project_info_page(proj_id):
 class GradeForm(Form):
     """edit user Profile EditForm"""
     graderPID = TextField('graderPID', [validators.Length(min=3, max=50), validators.Required()])
-    videoquaility = RadioField('videoquaility', choices=[(1, '(1) poor'), (2, '(2) below average'), (3, '(3) average'),
+    videoquality = RadioField('videoquality', choices=[(1, '(1) poor'), (2, '(2) below average'), (3, '(3) average'),
         (4, '(4) above average'), (5, '(5) high')], validators=[validators.Required()])
-    soldlevel = RadioField('videoquaility', choices=[(1, '(1) not at all'), (2, '(2) somewhat'), (3, '(3) adequately'),
+    soldlevel = RadioField('videoquality', choices=[(1, '(1) not at all'), (2, '(2) somewhat'), (3, '(3) adequately'),
         (4, '(4) strongly'), (5, '(5) completely')], validators=[validators.Required()])
     othcompreference = BooleanField('othcompreference', validators=[validators.Required()])
     othcompname = TextField('othcompname', validators = [validators.Length(max=100)])
@@ -606,7 +606,7 @@ def project_reconcile_page(grade_num, series_num):
             if (str(temp) != '()'): #<-if not empty
 
                 g1ID = tuple(temp)[0][0]
-                c.execute("""SELECT videoquaility FROM video_grades_table WHERE project_id = %s and
+                c.execute("""SELECT videoquality FROM video_grades_table WHERE project_id = %s and
                 graderPID = %s""", (proj_id, g1ID))
                 vidqual1 = c.fetchall()[0][0]
                 c.execute("""SELECT soldlevel FROM video_grades_table WHERE project_id = %s and
@@ -654,7 +654,7 @@ def project_reconcile_page(grade_num, series_num):
                 c.execute("""SELECT animations FROM video_grades_table WHERE project_id = %s and
                 graderPID = %s""", (proj_id, g1ID))
                 a1 = c.fetchall()[0][0]
-                c.execute("""SELECT paten1 FROM video_grades_table WHERE project_id = %s and
+                c.execute("""SELECT patent FROM video_grades_table WHERE project_id = %s and
                 graderPID = %s""", (proj_id, g1ID))
                 pat1 = c.fetchall()[0][0]
                 # c.execute("""SELECT logo1 FROM project_table WHERE project_id = %s""", (proj_id, ))
@@ -667,7 +667,7 @@ def project_reconcile_page(grade_num, series_num):
                 temp = c.fetchall()
                 if (len(tuple(temp)) > 1):
                     g2PID = tuple(temp)[1][0]
-                    c.execute("""SELECT videoquaility FROM video_grades_table WHERE project_id = %s
+                    c.execute("""SELECT videoquality FROM video_grades_table WHERE project_id = %s
                     and graderPID = %s""", (proj_id, g2PID))
                     vidqual2 = c.fetchall()[0][0]
                     c.execute("""SELECT soldlevel FROM video_grades_table WHERE project_id = %s
@@ -715,7 +715,7 @@ def project_reconcile_page(grade_num, series_num):
                     c.execute("""SELECT animations FROM video_grades_table WHERE project_id = %s
                     and graderPID = %s""", (proj_id, g2PID))
                     a2 = c.fetchall()[0][0]
-                    c.execute("""SELECT paten1 FROM video_grades_table WHERE project_id = %s
+                    c.execute("""SELECT patent FROM video_grades_table WHERE project_id = %s
                     and graderPID = %s""", (proj_id, g2PID))
                     pat2 = c.fetchall()[0][0]
                     # c.execute("""SELECT logo FROM video_grades_table WHERE project_id = %s
@@ -726,7 +726,7 @@ def project_reconcile_page(grade_num, series_num):
                     rm2 = c.fetchall()[0][0]
 
             if (vidqual1 == vidqual2):
-                form.videoquaility = ''
+                form.videoquality = ''
             if (sl1 == sl2):
                 form.soldlevel = ''
             if (ocr1 == ocr2):
@@ -772,10 +772,10 @@ def project_reconcile_page(grade_num, series_num):
                 project_name = name, series_number = series_number, project_url = project_url,
                 status = status, currency = currency, goal = goal, end_date = end_date, author_name = author,
                 location = location, category = category, main_video_link = video,
-                grader1PID = g1ID, videoquaility1 = vidqual1, othcompreference1 = ocr1, othcompname1 = ocn1,
+                grader1PID = g1ID, videoquality1 = vidqual1, othcompreference1 = ocr1, othcompname1 = ocn1,
                 pitchFounder1 = pf1, pitchTechnology1 = pt1, pitchCustomer1 = pc1, founderschool1 = fsr1, founderschoolname1 = fsn1, founderstartup1 = fsur1,
                 founderstartupname1 = fsun1, prototypes1 = p1, endorsementname1 = en1, endorsements1 = e1,
-                grader2PID = g2PID, videoquaility2 = vidqual2, othcompreference2 = ocr2, othcompname2 = ocn2,
+                grader2PID = g2PID, videoquality2 = vidqual2, othcompreference2 = ocr2, othcompname2 = ocn2,
                 pitchFounder2 = pf2, pitchTechnology2 = pt2, pitchCustomer2 = pc2, founderschool2 = fsr2, founderschoolname2 = fsn2, founderstartup2 = fsur2,
                 founderstartupname2 = fsun2, prototypes2 = p2, endorsementname2 = en2, endorsements2 = e2, videocontent2 = sl2, videocontent1 = sl1,
                 music1 = m1, music2 = m2, patent1 = pat1, patent2 = pat2, animations1 = a1, animations2 = a2,
@@ -799,7 +799,7 @@ def save_form_to_db(form, grade_num, series_num, regrade):
         colon = (int(str(form.videolength.data).find(":")))
         if  colon != -1:
             videoLength = int(str(form.videolength.data).split(":")[0]) * 60 + (int(str(form.videolength.data).split(":")[1]))
-        args = (series_num, project_id, graded, str(form.graderPID.data) + regrade, form.videoquaility.data, form.soldlevel.data, form.othcompreference.data,
+        args = (series_num, project_id, graded, str(form.graderPID.data) + regrade, form.videoquality.data, form.soldlevel.data, form.othcompreference.data,
                 form.othcompname.data, form.founderschool.data, form.founderschoolname.data, form.founderstartup.data,
                 form.founderstartupname.data, form.prototype.data, form.endorsement.data, form.endorsementname.data,
                 form.music.data, form.animations.data, form.patent.data, form.rewardsmentioned.data,
@@ -824,10 +824,10 @@ def save_form_to_db(form, grade_num, series_num, regrade):
             return 'Fail ' + str(grade_num)
         c.connection.commit()
         c.execute('''INSERT INTO video_grades_table (project_id, series_number, graded, graderPID,
-                    videopressent, videoquaility, soldlevel,
+                    videopresent, videoquality, soldlevel,
                     othcompreference, othcompname, founderschool, founderschoolname,
                     founderstartup, founderstartupname, prototypes, endorsements,
-                    endorsementname, music, animations, paten1,
+                    endorsementname, music, animations, patent,
                     rewardsMentioned, pitchFounder, pitchTechnology, pitchCustomer,
                     videoLength)
                     VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
