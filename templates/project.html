@@ -10,7 +10,7 @@
                 <tr><td><b>Series Number </b> </td> <td> {{series_number}} </td></tr>
                 <tr><td><b>Project ID </b> </td> <td> {{project_id}} </td></tr>
                 <tr><td><b>Project Name </b> </td> <td> {{project_name }} </td></tr>
-                <tr><td><b>Project URL </b> </td> <td>{{project_url}} </td></tr>
+                <tr><td><b>Project URL </b> </td> <td> <a href={{project_url}}>{{project_url}} </a></td></tr>
                 <tr><td><b>Status </b> </td> <td> {{status}} </td></tr>
                 <tr><td><b>Currency </b> </td> <td> {{ currency}} </td></tr>
                 <tr><td><b>Goal </b> </td> <td> {{goal}} </td></tr>
@@ -18,40 +18,35 @@
                 <tr><td><b>Author Name </b> </td> <td> {{author_name }} </td></tr>
                 <tr><td><b>Location </b> </td> <td> {{location}} </td></tr>
                 <tr><td><b>Category </b> </td> <td> {{category }} </td></tr>
-                <hr>
+
                 <tr><td><b><u>Grading Information</u> </b></tr>
                 <tr><td><b>firmid </b> </td> <td> {{project_id }} </td></tr>
-                <tr><td><b>Video </b> </td> <td> {{main_video_link }} </td></tr>
-                <tr><td><b>Grader1 ID </b> </td> <td> {{grader1PID }} </td></tr>
-                <tr><td><b>* Video Quaility 1 </b></td> <td> {{videoquaility1 }} </td></tr>
-                <tr><td><b>* Video Content 1 </b></td> <td> {{videocontent1 }} </td></tr>
-                <tr><td><b>* Other Company  Referenced 1 </b></td> <td> {{othcompreference1 }} </td></tr>
-                <tr><td><b>* Other Company Name 1 </b></td> <td> {{othcompname1 }} </td></tr>
-                <tr><td><b>* Pitch Focus Founder 1 </b></td> <td> {{pitchFounder1 }} </td></tr>
-                <tr><td><b>* Pitch Focus Technology 1 </b></td> <td> {{pitchTechnology1 }} </td></tr>
-                <tr><td><b>* Pitch Focus Customer 1 </b></td> <td> {{pitchCustomer1 }} </td></tr>
-                <tr><td><b>* Founder School Referenced 1 </b></td> <td> {{founderschool1 }} </td></tr>
-                <tr><td><b>* Founder School Name 1 </b></td> <td> {{founderschoolname1 }} </td></tr>
-                <tr><td><b>* Founder Startup Referenced 1 </b></td> <td> {{founderstartup1 }} </td></tr>
-                <tr><td><b>* Founder Startup Name 1 </b></td> <td> {{founderstartupname1 }} </td></tr>
-                <tr><td><b>* Prototype Pressent 1</b></td> <td> {{prototypes1}} </td></tr>
-                <tr><td><b>* Endorsement Pressent 1</b></td> <td> {{endorsements1}} </td></tr>
-                <tr><td><b>* Endorsement Name 1</b></td> <td> {{endorsementname1}} </td></tr>
-                <tr><td><b>Grader2 ID </b> </td> <td> {{grader2PID }} </td></tr>
-                <tr><td><b>* Video Quaility 2 </b></td> <td> {{videoquaility2 }} </td></tr>
-                <tr><td><b>* Video Content 2 </b></td> <td> {{videocontent2 }} </td></tr>
-                <tr><td><b>* Other Company  Referenced 2 </b></td> <td> {{othcompreference2 }} </td></tr>
-                <tr><td><b>* Other Company Name 2 </b></td> <td> {{othcompname2 }} </td></tr>
-                <tr><td><b>* Pitch Focus Founder 2 </b></td> <td> {{pitchFounder2 }} </td></tr>
-                <tr><td><b>* Pitch Focus Technology 2 </b></td> <td> {{pitchTechnology2 }} </td></tr>
-                <tr><td><b>* Pitch Focus Customer 2 </b></td> <td> {{pitchCustomer2 }} </td></tr>
-                <tr><td><b>* Founder School Referenced 2 </b></td> <td> {{founderschool2 }} </td></tr>
-                <tr><td><b>* Founder School Name 2 </b></td> <td> {{founderschoolname2 }} </td></tr>
-                <tr><td><b>* Founder Startup Referenced 2 </b></td> <td> {{founderstartup2 }} </td></tr>
-                <tr><td><b>* Founder Startup Name 2 </b></td> <td> {{founderstartupname2 }} </td></tr>
-                <tr><td><b>* Prototype Pressent 2</b></td> <td> {{prototypes2}} </td></tr>
-                <tr><td><b>* Endorsement Pressent 2</b></td> <td> {{endorsements2}} </td></tr>
-                <tr><td><b>* Endorsement Name 2</b></td> <td> {{endorsementname2}} </td></tr>
+                <tr><td><b>Video </b> </td> <td> <a href={{main_video_link}}>{{main_video_link}} </a> </td></tr>
+                <br>
+                </table>
+                <table>
+                <tr><td><b><u>category</u> </b></td> <td>grade1</td><td>grade2</td></tr>
+                <tr><td><b>firmid </b> </td> <td> {{project_id }} </td></tr>
+                <tr><td><b>Grader ID </b> </td> <td> {{grader1PID }} </td><td> {{grader2PID }} </td></tr>
+                <tr><td><b>1 Video Quaility</b></td> <td> {{videoquaility1 }} </td> <td> {{videoquaility2}} </td></tr>
+                <tr><td><b>2 Video Content</b></td> <td> {{videocontent1 }} </td><td> {{videocontent2}} </td></tr>
+                <tr><td><b>3 Music Present</b></td> <td>{{music1}}</td><td>{{music2}}</td></tr>
+                <tr><td><b>4 Animations Present</b></td><td>{{animations1}}</td><td>{{animations2}}</td></tr>
+                <tr><td><b>5 Prototype Pressent</b></td> <td> {{prototypes1}} </td><td> {{prototypes2}} </td></tr>
+                <tr><td><b>6 Patents Mentioned</b></td> <td>{{patent1}}</td><td>{{patent2}}</td></tr>
+                <tr><td><b>7 Logo Present</b><td>{{logo1}}</td><td>{{logo2}}</td></td></tr>
+                <tr><td><b>8 Rewards Mentioned</b></td> <td>{{rewards1}}</td><td>{{rewards2}}</td></tr>
+                <tr><td><b>9 Other Company  Referenced</b></td> <td> {{othcompreference1 }} </td><td> {{othcompreference2 }} </td></tr>
+                <tr><td><b>* Other Company Name</b></td> <td> {{othcompname1 }} </td><td> {{othcompname2}} </td></tr>
+                <tr><td><b>10 Founder School Referenced</b></td> <td> {{founderschool1 }} </td><td> {{founderschool2}} </td></tr>
+                <tr><td><b>* Founder School Name</b></td> <td> {{founderschoolname1 }} </td><td> {{founderschoolname2}} </td></tr>
+                <tr><td><b>11 Founder Startup Referenced</b></td> <td> {{founderstartup1 }} </td><td> {{founderstartup2}} </td></tr>
+                <tr><td><b>* Founder Startup Name</b></td> <td> {{founderstartupname1 }} </td><td> {{founderstartupname2}} </td></tr>
+                <tr><td><b>12 Endorsement Pressent</b></td> <td> {{endorsements1}} </td> <td> {{endorsements2}} </td></tr>
+                <tr><td><b>* Endorsement Name</b></td> <td> {{endorsementname1}} </td><td> {{endorsementname2}} </td></tr>
+                <tr><td><b>13 Pitch Focus Founder</b></td> <td> {{pitchFounder1 }} </td><td> {{pitchFounder2}} </td></tr>
+                <tr><td><b>* Pitch Focus Technology</b></td> <td> {{pitchTechnology1 }} </td><td> {{pitchTechnology2}} </td></tr>
+                <tr><td><b>* Pitch Focus Customer</b></td> <td> {{pitchCustomer1 }} </td><td> {{pitchCustomer2}} </td></tr>
             </table>
         </p>
     </body>
